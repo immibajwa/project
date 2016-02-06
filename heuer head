@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Website Title & Description for Search Engine purposes -->
+		<title>Code a Responsive Website with Twitter Bootstrap 3</title>
+		<meta name="description" content="Learn how to code your first responsive website with the new Twitter Bootstrap 3.">
+		
+		<!-- Mobile viewport optimized -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		
+		<!--
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="includes/css/bootstrap-glyphicons.css" rel="stylesheet">
+		<link rel="stylesheet" href="includes/css/styles.css">
+		<script src="includes/js/modernizr-2.6.2.min.js"></script>
+		-->
+<script src="includes/js/modernizr-2.6.2.min.js"></script>
+		<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">		
+	</head>
+	<body>
+	
+	<nav class="navbar navbar-light bg-faded" role="navigation" >
+	  <ul class="nav navbar-nav">
+		<li class="nav-item active">
+		  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+		</li>
+		<li class="nav-item">
+		  <a class="nav-link" href="#">Features</a>
+		</li>
+		<li class="nav-item">
+		  <a class="nav-link" href="#">Pricing</a>
+		</li>
+		<li class="nav-item">
+		  <a class="nav-link" href="#">About</a>
+		</li>
+	  </ul>
+</nav>
+	<nav class="navbar navbar-default" role="navigation" >
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+      </button>
+      <!--<a class="navbar-brand" href="#">Brand</a>-->
+    </div>
+<style>
+ div#menu{
+  width:900px;
+ }
+ div#menu div {padding-right:10px;padding-left: 0;}
+ .menu-dialog {
+	height: 100px;
+	position:relative;
+	margin: 10px 0px 10px;
+	color:#FFF;
+ }
+ .bottom {    
+    position: absolute;
+    bottom:0px;
+	left:10px;
+}
+.fach {background-color:#2E4882}
+.wohn {background-color:#345237}
+.Handels {background-color:#600F11}
+.Jahreskongresse {background-color:#1A1E36}
+.Immobilien {background-color:#7D460B}
+.Regionen {background-color:#49464D}
+
+ul#menu-list {
+list-style: outside none none;
+padding-left: 0;
+border-right:1px solid #eee;
+margin-right:15px;
+}
+ul#menu-list > li {
+padding:5px 0px 5px;
+margin-right:10px;
+border-bottom:1px dotted #eee;
+}
+ul#menu-list > li:hover {
+background-color:#eee;
+}
+ul#menu-list > li > a {
+    clear: both;
+    color: #333;
+    display: block;
+    font-weight: 400;
+    line-height: 1.42857;
+    padding: 3px 15px;
+	text-decoration: none;
+    white-space: nowrap;
+	
+}
+div#bottom-menu-link {
+	padding-bottom: 15px;
+    padding-top: 25px;
+}
+div#bottom-menu-link a {
+text-decoration: none;
+}
+
+
+</style>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="dropdown" >
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+		  <div class="dropdown-menu" id="menu">
+		  <div class="row-fluid" >
+			<div class="col-sm-3">
+				<ul id="menu-list" > 
+					<li><a href="#">veranstaltungs-vorschau</a></li>
+					<li><a href="#">nach Thema</a></li>
+					<li><a href="#">Nach Region</a></li>
+					<li><a href="#">Quo Vads</a></li>
+					<li><a href="#">Dialogpartnerschaft</a></li>
+					<li><a href="#">Rückblick</a></li>
+					
+				</ul>
+			</div>
+			<div class="col-sm-3">
+				<div class="menu-dialog fach">
+					<p class="bottom">Fach-Dialoge</p>
+				</div>
+				<div class="menu-dialog wohn">
+					<p class="bottom">Wohn-Dialog</p>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="menu-dialog Handels"><p class="bottom">Handels-Dialoge</p></div>
+				<div class="menu-dialog Jahreskongresse"><p class="bottom">Jahreskongresse-Messen</p></div>
+			</div>
+			<div class="col-sm-3">
+				<div class="menu-dialog Immobilien"><p class="bottom">Immobilien-Dialoge</p></div>
+				<div class="menu-dialog Regionen"><p class="bottom">Regionen-Dialog</p></div>
+			</div>
+			<div class="col-sm-offset-3" >
+				<div class="pull-right text-uppercase" id="bottom-menu-link">
+					<a href="#">Alle VERANSTALTUNGEN</a>
+				</div>
+			
+			</div>
+		  </div>
+        </li>
+		<li class="text-uppercase"><a href="#">quo vadis</a></li>
+		<li class="text-uppercase"><a href="#">kundenveranstaltungen</a></li>
+		
+      </ul>
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="SUCHE">
+        </div>
+        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<!--
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+-->
+	<!-- <img style="width:600px;height:600px" src="muster.jpg"></img>
+	
+			
+Latest compiled and minified JavaScript -->
+  <!--<script src="http://code.jquery.com/jquery-1.10.2.js"></script>-->
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
