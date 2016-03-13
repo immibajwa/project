@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link  >
+<link rel="stylesheet" type="text/css" href="bootstrap.css">
+<script src="angular.js"></script>
+<script type="text/javascript">
+angular.module('app',[]).controller('ctrl',function($scope,$window){
+	$scope.image={};
+	$scope.image.strMetaData={originalWidth:1186,originalHeight:1080,cropX1:0,cropY1:176,cropX2:1586,cropY2:872};
+	$scope.image.escalatedUri="https://cdn.iz.de/media/images/image-0101606_s:widthxauto_c0x176_1586x872.jpg";
+	})
+.directive('izImage',function($window){
+	return {
+		restrict:'E',
+		replace:true,
+		scope:{lg:'@',md:'@',sm:'@',xs:'@',source:'@',size:'@',metadata:'@'},
+		template:function(){
+			return '<img ng-show="{{show}}"  ng-src="{{path}}" />';
+		},
+		controller:function($scope,$window){
+		var _width=$window.innerWidth;
+		var _LG_MIN=1200;var _MD_MIN=786;var _SM_MIN=480;
+		$scope.show=true;
+		$scope.path="";
+		var _getEscalatedSrc=function(size){
+			if(!$scope.source){return;}
+			if(size && !size.match(/^\d{1,4}x\w{1,4}$/gi) && size != 'false'){size="";};
+			var _escalatedUri=$scope.source;
+			var strCrops="";
+			if($scope.metadata)
+			{
+				var _metaData=angular.fromJson($scope.metadata);
+				var _bHeight=_metaData.originalHeight;
+				if(_metaData.cropX2 && false){// TODO ??
+					_bHeight=_metaData.cropX2 - _metaData.cropX1;
+				}
+				var _bWidth=_metaData.originalWidth;
+				if(_metaData.cropY2 && false){// TODO ??
+					_bHeight=_metaData.cropY2 - _metaData.cropY1;
+				}
+				if(size){
+					var _bsize=size.split('x');
+					var desiredWidth=parseInt(_bsize[0]);
+					var desiredHeight=0;
+					if(_bsize[1]=='auto'){
+						// TODO what to do ??
+						//desiredHeight=desiredWidth * (_bHeight/_bWidth);
+						//desiredHeight=Math.round(desiredHeight);
+					}else{
+						desiredHeight=parseInt(_bsize[1]);
+					}
+					if(false){//4 CASES TODO ??
+						if(_bHeight/_bWidth > 1){
+							//horizontal pic
+							if(desiredHeight/desiredWidth > 1){/*horizontal*/}
+							if(desiredHeight/desiredWidth < 1){/*vertical*/}
+						}else{
+							/*vertical pic*/
+							if(desiredHeight/desiredWidth > 1){/*horizontal*/}
+							if(desiredHeight/desiredWidth < 1){/*vertical*/}
+						}
+					}
+					
+					if(desiredHeight/desiredWidth < _bHeight/_bWidth)
+					{ 
+						height=_bHeight-(_bWidth * desiredHeight)/desiredWidth;
+						marginTopBottom=Math.round(height/2);
+						
+						X1=0;Y1=marginTopBottom;X2=_bWidth;Y2=_bHeight-marginTopBottom;
+						//If crops are set ??
+						if(false){
+							X1=(_metadata.cropX1)? metadata.cropX1 : 0;
+							Y1=(_metadata.cropY1)? marginTopBottom+metadata.cropY1 : marginTopBottom;
+							X2=(_metadata.cropX2)? metadata.cropX2 : _bWidth;
+							Y2=(_metadata.cropY2)? metadata.cropY2 - marginTopBottom :_bHeight-marginTopBottom;
+						}
+						strCrops='_s'+size+'_c'+X1+'x'+Y1+'_'+X2+'x'+Y2;
+					}else{
+						var width=desiredWidth * _bHeight;
+						width=width / desiredHeight;
+						width=_bWidth - width;
+						marginLeftRight=Math.round(width/2);
+						X1=marginLeftRight;Y1=0;X2=_bWidth-marginLeftRight;Y2=_bHeight;
+						//If crops are set ?? 
+						if(false){
+							X1=(_metadata.cropX1) ? marginLeftRight+_metadata.cropX1 : marginLeftRight;
+							Y1=(_metadata.cropY1) ? _metadata.cropY1 : 0;
+							X2=(_metadata.cropX2) ? _metadata.cropX2-marginLeftRight : _bWidth-marginLeftRight;
+							Y2=(_metadata.cropY2) ? _metadata.cropY2 : _bHeight;
+						}
+						strCrops='_s'+size+'_c'+X1+'x'+Y1+'_'+X2+'x'+Y2;
+					}
+				}
+			}
+			if($scope.source){
+				//_escalatedUri=_escalatedUri.replace(/cdn.imran.loc/gi,'sprint-cdn.izstaging.de');
+				if(size){
+					if(size.match(/\d{1,4}xauto/gi) || strCrops==""){
+						debugger;
+						return _escalatedUri.replace(/_s.*(?=\.)/gi,"_s"+size);
+					}
+					if(strCrops){
+						return _escalatedUri.replace(/_s.*(?=\.)/gi,strCrops);
+					}
+				}
+				return _escalatedUri.replace(/_s.*(?=\.)/gi,"");
+			}else{
+				$scope.show=false;
+			}
+		};
+
+		if(_width >= _LG_MIN && $scope.lg){
+			if($scope.lg == 'false'){$scope.show=false;}else{$scope.path=_getEscalatedSrc($scope.lg);}
+		}else if(_width < _LG_MIN && _width >= _MD_MIN && $scope.md){
+			if($scope.md == 'false'){$scope.show=false;}else{$scope.path=_getEscalatedSrc($scope.md);}
+		}else if(_width < _MD_MIN && _width >= _SM_MIN && $scope.sm){
+			if($scope.sm =='false'){$scope.show=false;}else{$scope.path=_getEscalatedSrc($scope.sm);}
+		}else if (_width < _SM_MIN && $scope.xs ){
+			if($scope.xs == 'false'){$scope.show=false;}else{$scope.path=_getEscalatedSrc($scope.xs);}
+		}else if ($scope.size && $scope.size != 'false'){$scope.path=_getEscalatedSrc($scope.size);
+		}else{$scope.path=_getEscalatedSrc();}
+	},
+	link:function(scope,ele,attr){
+		var w = angular.element($window);
+			   scope.$watch(function () {
+					return {'wth': window.innerWidth};
+				},
+				function (newValue, oldValue) {
+					//console.log(newValue, oldValue);
+					//scope.windowWidth = newValue.wth;
+					if(newValue.wth > 500 && newValue.wth < 550){
+						scope.path="https://cdn.iz.de/media/images/image-0101735_s274xauto.jpeg";
+					}
+				}, true);
+				 w.bind('resize', function () {
+					//console.log(scope);
+					scope.$apply();
+				});
+	}
+	};
+});
+</script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body ng-app="app" ng-controller="ctrl">
+	<div class="container-fluid" style="max-width:1100px">
+	<p class="divider">IMAGE</p>
+		<div class="row">
+			<div class="col-md-6 text-center" >
+				<iz-image md="650x200" xs="100x100" sm="false"  lg="600x300" size="500x200" source="{{image.escalatedUri}}" metadata="{{image.strMetaData}}"></iz-image>
+			</div>
+		</div>
+	
+</body>
+</html>
