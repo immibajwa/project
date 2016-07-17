@@ -1,0 +1,11 @@
+<div>
+<a ui-sref="admin">admin</a>
+<h1>USER LIST</h1>
+	<ul>
+		<li ng-repeat="user in usersCtrl.userlist">
+			<a ui-sref="user({id:user.id})" ng-bind="user.name"></a>
+		</li>
+	</ul>
+	<div ui-view></div>
+</div>
+
